@@ -26,4 +26,15 @@ router.get('/songs', (req, res) => {
     })
 })
 
+router.get('/songwriters', (req, res) => {
+  db.getSongwriters()
+    .then(songwriters => {
+      res.json(songwriters)
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(500).json({message: 'Error. getSongwriters route has failed'})
+    })
+})
+
 module.exports = router

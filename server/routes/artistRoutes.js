@@ -11,7 +11,18 @@ router.get('/', (req, res) => {
     })
     .catch(err => {
       console.log(err)
-      res.status(500).json({message: 'Error. Please see console log'})
+      res.status(500).json({message: 'Error. getArtists route has failed'})
+    })
+})
+
+router.get('/songs', (req, res) => {
+  db.getSongs()
+    .then(songs => {
+      res.json(songs)
+    })
+    .catch(err => {
+      console.log(err)
+      res.status(500).json({message: 'Error. getSongs route has failed'})
     })
 })
 

@@ -1,6 +1,14 @@
 import { getFruits } from '../apis/fruits'
 
 export const SET_FRUITS = 'SET_FRUITS'
+export const GET_ARTISTS = 'GET_ARTISTS'
+
+export const getArtists = (artists) => {
+  return {
+    type: GET_ARTISTS,
+    artists
+  }
+}
 
 export function setFruits (fruits) {
   return {

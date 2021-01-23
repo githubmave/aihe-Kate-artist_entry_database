@@ -1,7 +1,8 @@
 import React from 'react'
 import { connect } from 'react-redux'
 
-import { fetchFruits } from '../actions'
+import { fetchFruits, getArtists } from '../actions/index'
+import { fetchArtists } from '../apis/artistsApi'
 
 export class App extends React.Component {
   state = {
@@ -10,9 +11,18 @@ export class App extends React.Component {
 
   componentDidMount () {
     this.props.dispatch(fetchFruits())
+
+    fetchArtists()
+    .then(artists => {
+      this.props.dispatch(getArtists(artists))
+    })
+    .catch(err => {
+      console.log(err)
+    })
   }
 
   render () {
+    console.log(this.props)
     return (
       <div className='app'>
         <h1>Fullstack Boilerplate - with Fruits!</h1>
@@ -21,14 +31,21 @@ export class App extends React.Component {
             <li key={fruit}>{fruit}</li>
           ))}
         </ul>
+        {/* <ul>
+          {this.props.artists.map(artist => (
+            <li key={artist.id}>{artist.artist_name}</li>
+          ))}
+        </ul> */}
       </div>
     )
   }
 }
 
 function mapStateToProps (globalState) {
+  console.log(globalState)
   return {
-    fruits: globalState.fruits
+    fruits: globalState.fruits,
+    artists: globalState.artists
   }
 }
 

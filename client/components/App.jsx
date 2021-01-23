@@ -14,6 +14,7 @@ export class App extends React.Component {
 
     fetchArtists()
     .then(artists => {
+      console.log(artists)
       this.props.dispatch(getArtists(artists))
     })
     .catch(err => {
@@ -31,21 +32,21 @@ export class App extends React.Component {
             <li key={fruit}>{fruit}</li>
           ))}
         </ul>
-        {/* <ul>
+        <ul>
           {this.props.artists.map(artist => (
             <li key={artist.id}>{artist.artist_name}</li>
           ))}
-        </ul> */}
+        </ul>
       </div>
     )
   }
 }
 
-function mapStateToProps (globalState) {
-  console.log(globalState)
+function mapStateToProps (state) {
+  console.log(state)
   return {
-    fruits: globalState.fruits,
-    artists: globalState.artists
+    fruits: state.fruits,
+    artists: state.artists
   }
 }
 

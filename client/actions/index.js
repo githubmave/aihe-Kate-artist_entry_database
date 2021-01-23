@@ -4,6 +4,7 @@ export const SET_FRUITS = 'SET_FRUITS'
 export const GET_ARTISTS = 'GET_ARTISTS'
 
 export const getArtists = (artists) => {
+  console.log(artists)
   return {
     type: GET_ARTISTS,
     artists

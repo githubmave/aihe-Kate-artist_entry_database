@@ -1,9 +1,11 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
+import {Route, Link} from 'react-router-dom'
 
 import {fetchArtists} from '../apis/artistsApi'
 import {getArtists} from '../actions/index'
+
+import ArtistInfo from './ArtistInfo'
 
 class Artists extends React.Component {
 
@@ -22,9 +24,11 @@ class Artists extends React.Component {
       <div className="artists">
         <ul>
           {this.props.artists.map(artist => (
-            <li key={artist.id}>{artist.artist_name}</li>
+            <li key={artist.id}><Link to={`/artist/${artist.id}`}>{artist.artist_name}</Link></li>
           ))}
         </ul>
+        <Route path='/artist/:id' render={(props) => (
+          <ArtistInfo {...props} artists={this.props.artists}/> )} />
       </div>
     )
   }

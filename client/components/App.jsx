@@ -1,8 +1,9 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import {HashRouter as Router, Route} from 'react-router-dom'
 
-import { fetchFruits, getArtists } from '../actions/index'
-import { fetchArtists } from '../apis/artistsApi'
+import { fetchFruits} from '../actions/index'
+import Artists from './Artists'
 
 export class App extends React.Component {
   state = {
@@ -11,20 +12,11 @@ export class App extends React.Component {
 
   componentDidMount () {
     this.props.dispatch(fetchFruits())
-
-    fetchArtists()
-    .then(artists => {
-      console.log(artists)
-      this.props.dispatch(getArtists(artists))
-    })
-    .catch(err => {
-      console.log(err)
-    })
   }
 
   render () {
-    console.log(this.props)
     return (
+      <Router>
       <div className='app'>
         <h1>Fullstack Boilerplate - with Fruits!</h1>
         <ul>
@@ -32,21 +24,16 @@ export class App extends React.Component {
             <li key={fruit}>{fruit}</li>
           ))}
         </ul>
-        <ul>
-          {this.props.artists.map(artist => (
-            <li key={artist.id}>{artist.artist_name}</li>
-          ))}
-        </ul>
+        <Artists />
       </div>
+      </Router>
     )
   }
 }
 
 function mapStateToProps (state) {
-  console.log(state)
   return {
     fruits: state.fruits,
-    artists: state.artists
   }
 }
 
